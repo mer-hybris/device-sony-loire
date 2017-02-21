@@ -129,12 +129,11 @@ service fingerprintd /system/bin/fingerprintd
     group input
     writepid /dev/cpuset/system-background/tasks
 
-# brcm-uim-sysfs (BT/FM/ANT+)
-service uim /system/bin/brcm-uim-sysfs
-    class late_start
+service msm_irqbalance /system/vendor/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
+    socket msm_irqbalance seqpacket 660 root system
+    class core
     user root
-    group bluetooth net_bt_admin net_bt
-    seclabel u:r:uim:s0
+    group root
     writepid /dev/cpuset/system-background/tasks
 
 on property:vold.post_fs_data_done=1
