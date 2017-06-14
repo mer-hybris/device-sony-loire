@@ -84,13 +84,14 @@ on boot
     write /dev/cpuset/camera-daemon/cpus 0-3
 
 # OSS WLAN and BT MAC setup
-service macaddrsetup /system/bin/macaddrsetup /sys/devices/soc.0/bcmdhd_wlan.115/macaddr
-    class core
-    user system
-    group system bluetooth
-    disabled
-    oneshot
-    writepid /dev/cpuset/system-background/tasks
+# Disabled - has been moved to a systemd service where it can be monitored more closely
+#service macaddrsetup /system/bin/macaddrsetup /sys/devices/soc.0/bcmdhd_wlan.115/macaddr
+#    class core
+#    user system
+#    group system bluetooth
+#    disabled
+#    oneshot
+#    writepid /dev/cpuset/system-background/tasks
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -149,9 +150,10 @@ service msm_irqbalance /system/vendor/bin/msm_irqbalance -f /system/etc/msm_irqb
     group root
     writepid /dev/cpuset/system-background/tasks
 
-on property:vold.post_fs_data_done=1
-    # Generate Bluetooth MAC address file only when /data is ready
-    start macaddrsetup
+# Moved to systemd service, see macaddrsetup above
+#on property:vold.post_fs_data_done=1
+#    # Generate Bluetooth MAC address file only when /data is ready
+#    start macaddrsetup
 
 on property:bluetooth.isEnabled=true
     write /sys/class/bluetooth/hci0/idle_timeout 7000
