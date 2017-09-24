@@ -174,3 +174,11 @@ on boot
     # set (super) packing parameters
     write /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 1017600
     write /sys/devices/system/cpu/cpu4/sched_mostly_idle_freq 0
+    
+    # enable all CPUs here, until we can do this in power management
+    write /sys/devices/system/cpu/cpuquiet/nr_min_cpus 4
+    write /sys/devices/system/cpu/cpuquiet/nr_power_max_cpus 6
+    write /sys/devices/system/cpu/cpuquiet/nr_thermal_max_cpus 6
+    write /sys/devices/system/cpu/cpuquiet/rqbalance/balance_level 40
+    write /sys/devices/system/cpu/cpuquiet/rqbalance/nr_run_thresholds "50 100 150 400 450 4294967295"
+    write /sys/devices/system/cpu/cpuquiet/rqbalance/nr_down_run_thresholds "0 25 75 125 375 425"
