@@ -35,6 +35,10 @@
         <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="801"/>
 
         <device name="SND_DEVICE_OUT_VOICE_SPEAKER" acdb_id="101"/>
+        <!-- Use regular voice speaker ACDB id with WSA speaker as well,
+             otherwise we get 'Error: invalid device pair!' with
+             voice speaker route. -->
+        <device name="SND_DEVICE_OUT_VOICE_SPEAKER_WSA" acdb_id="101"/>
     </acdb_ids>
     <bit_width_configs>
         <device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"/>
